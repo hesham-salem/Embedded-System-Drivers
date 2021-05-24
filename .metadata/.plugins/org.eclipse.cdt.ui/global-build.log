@@ -211,3 +211,24 @@ Data:         26 bytes (2.5% Full)
 
 Finished building: sizedummy
  
+20:15:41 **** Build of configuration Debug for project keybad ****
+make all 
+Building file: ../keybad.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=1000000UL -MMD -MP -MF"keybad.d" -MT"keybad.o" -c -o "keybad.o" "../keybad.c"
+In file included from ../micro_config.h:22:0,
+                 from ../keybad.h:14,
+                 from ../keybad.c:12:
+/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
+ # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+   ^
+Finished building: ../keybad.c
+ 
+Building target: keybad.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,keybad.map -mmcu=atmega16 -o "keybad.elf"  ./keybad.o   
+/usr/lib/gcc/avr/5.4.0/../../../avr/lib/avr5/crtatmega16.o:(.init9+0x0): undefined reference to `main'
+collect2: error: ld returned 1 exit status
+makefile:55: recipe for target 'keybad.elf' failed
+make: *** [keybad.elf] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
