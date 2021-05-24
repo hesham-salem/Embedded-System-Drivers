@@ -1,0 +1,33 @@
+/*
+ * lcd.c
+ *
+ *  Created on: May 22, 2021
+ *      Author: hesham
+ */
+#include"lcd.h"
+
+void LCD_sendCommand(uint8 command)
+{
+//rs=0
+
+//r/w =0
+//delay 1
+//E=1
+//delay 1
+//portc=command
+// delay 1
+//E=0
+//delay 1
+}
+void LCD_displayCharacter(uint8 data)
+{
+	//rs=1
+	//r/w =0
+	//delay 1
+	//E=1
+	//delay 1
+	//portc=datas
+	// delay 1
+	//E=0
+	//delay 1
+}

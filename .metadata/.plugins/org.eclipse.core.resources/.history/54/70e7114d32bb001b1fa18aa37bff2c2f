@@ -1,0 +1,16 @@
+/*
+ * lcd.c
+ *
+ *  Created on: May 22, 2021
+ *      Author: hesham
+ */
+#include"lcd.h"
+
+void LCD_sendCommand(uint8 command)
+{
+
+}
+void LCD_displayCharacter(uint8 data)
+{
+
+}

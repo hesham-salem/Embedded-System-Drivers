@@ -1,0 +1,18 @@
+/*
+ * lcd.h
+ *
+ *  Created on: May 22, 2021
+ *      Author: hesham
+ */
+
+#ifndef LCD_H_
+#define LCD_H_
+
+#include"common_macros.h"
+#include"micro_config.h"
+#include"std_types.h"
+
+
+
+
+#endif /* LCD_H_ */

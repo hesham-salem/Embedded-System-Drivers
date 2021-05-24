@@ -1,0 +1,47 @@
+/*
+ * lcd.c
+ *
+ *  Created on: May 22, 2021
+ *      Author: hesham
+ */
+#include"lcd.h"
+
+void LCD_sendCommand(uint8 command)
+{
+//rs=0
+CLEAR_BIT(PORTD,4);
+//r/w =0
+CLEAR_BIT(PORTD,5);
+
+//delay 1
+_delay_ms(1);
+
+//E=1
+SET_BIT(PORTD,6);
+
+//delay 1
+_delay_ms(1);
+//portc=command
+PORTC=command;
+// delay 1
+_delay_ms(1);
+
+//E=0
+CLEAR_BIT(PORTD,6);
+
+//delay 1
+_delay_ms(1);
+
+}
+void LCD_displayCharacter(uint8 data)
+{
+	//rs=1
+	//r/w =0
+	//delay 1
+	//E=1
+	//delay 1
+	//portc=datas
+	// delay 1
+	//E=0
+	//delay 1
+}

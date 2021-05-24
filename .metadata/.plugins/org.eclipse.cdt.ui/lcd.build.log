@@ -1,0 +1,7 @@
+17:28:10 **** Clean-only build of configuration Release for project lcd ****
+make clean 
+rm -rf  lcd.hex  ./lcd.o ./src.o  lcd.eep  sizedummy  lcd.lss  ./lcd.d ./src.d  lcd.elf
+ 
+
+17:28:10 Build Finished. 0 errors, 0 warnings. (took 71ms)
+
