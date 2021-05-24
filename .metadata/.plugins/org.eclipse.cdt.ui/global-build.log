@@ -92,3 +92,122 @@ Finished building: sizedummy
 make clean 
 rm -rf  lcd.hex  ./lcd.o ./src.o  lcd.eep  sizedummy  lcd.lss  ./lcd.d ./src.d  lcd.elf
  
+18:23:12 **** Build of configuration Release for project lcd ****
+make all 
+Building file: ../lcd.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=1000000UL -MMD -MP -MF"lcd.d" -MT"lcd.o" -c -o "lcd.o" "../lcd.c"
+../lcd.c: In function ‘LCD_init’:
+../lcd.c:26:17: error: ‘CLEAR_DISPLAY’ undeclared (first use in this function)
+subdir.mk:21: recipe for target 'lcd.o' failed
+ LCD_sendCommand(CLEAR_DISPLAY);
+                 ^
+../lcd.c:26:17: note: each undeclared identifier is reported only once for each function it appears in
+../lcd.c: In function ‘LCD_intgerToString’:
+../lcd.c:96:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
+  itoa(data,buff,10); /* 10 for decimal base */
+  ^
+../lcd.c:97:20: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+  LCD_displayString(buff);
+                    ^
+../lcd.c:56:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayString(uint8 *str)
+      ^
+make: *** [lcd.o] Error 1
+"make all" terminated with exit code 2. Build might be incomplete.
+18:23:46 **** Incremental Build of configuration Release for project lcd ****
+make all 
+Building file: ../lcd.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=1000000UL -MMD -MP -MF"lcd.d" -MT"lcd.o" -c -o "lcd.o" "../lcd.c"
+../lcd.c: In function ‘LCD_init’:
+../lcd.c:26:17: error: ‘CLEAR_DISPLAY’ undeclared (first use in this function)
+ LCD_sendCommand(CLEAR_DISPLAY);
+                 ^
+../lcd.c:26:17: note: each undeclared identifier is reported only once for each function it appears in
+../lcd.c: In function ‘LCD_intgerToString’:
+../lcd.c:96:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
+  itoa(data,buff,10); /* 10 for decimal base */
+  ^
+../lcd.c:97:20: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+  LCD_displayString(buff);
+                    ^
+../lcd.c:56:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayString(uint8 *str)
+      ^
+make: *** [lcd.o] Error 1
+subdir.mk:21: recipe for target 'lcd.o' failed
+"make all" terminated with exit code 2. Build might be incomplete.
+18:23:49 **** Incremental Build of configuration Release for project lcd ****
+make all 
+Building file: ../lcd.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=1000000UL -MMD -MP -MF"lcd.d" -MT"lcd.o" -c -o "lcd.o" "../lcd.c"
+../lcd.c: In function ‘LCD_intgerToString’:
+../lcd.c:96:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
+  itoa(data,buff,10); /* 10 for decimal base */
+  ^
+../lcd.c:97:20: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+  LCD_displayString(buff);
+                    ^
+../lcd.c:56:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayString(uint8 *str)
+      ^
+../lcd.c: In function ‘LCD_goToRowColumn’:
+../lcd.c:82:2: warning: ‘address’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+  LCD_sendCommand(address|0x80);
+  ^
+Finished building: ../lcd.c
+ 
+Building file: ../src.c
+Invoking: AVR Compiler
+avr-gcc -Wall -Os -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=1000000UL -MMD -MP -MF"src.d" -MT"src.o" -c -o "src.o" "../src.c"
+../src.c: In function ‘main’:
+../src.c:18:34: warning: pointer targets in passing argument 3 of ‘LCD_displayStringRowColumn’ differ in signedness [-Wpointer-sign]
+   LCD_displayStringRowColumn(0,2,"My LCD Driver");
+                                  ^
+In file included from ../src.c:8:0:
+../lcd.h:48:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayStringRowColumn(uint8 row, uint8 col ,uint8 *str);
+      ^
+../src.c:19:34: warning: pointer targets in passing argument 3 of ‘LCD_displayStringRowColumn’ differ in signedness [-Wpointer-sign]
+   LCD_displayStringRowColumn(1,3,"Embedded WS");
+                                  ^
+In file included from ../src.c:8:0:
+../lcd.h:48:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayStringRowColumn(uint8 row, uint8 col ,uint8 *str);
+      ^
+Finished building: ../src.c
+ 
+Building target: lcd.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,lcd.map -mmcu=atmega16 -o "lcd.elf"  ./lcd.o ./src.o   
+Finished building target: lcd.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S lcd.elf  >"lcd.lss"
+Finished building: lcd.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex lcd.elf  "lcd.hex"
+Finished building: lcd.hex
+ 
+Create eeprom image (ihex format)
+avr-objcopy -j .eeprom --no-change-warnings --change-section-lma .eeprom=0 -O ihex lcd.elf  "lcd.eep"
+Finished building: lcd.eep
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega16 lcd.elf
+AVR Memory Usage
+----------------
+Device: atmega16
+
+Program:     650 bytes (4.0% Full)
+(.text + .data + .bootloader)
+
+Data:         26 bytes (2.5% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
