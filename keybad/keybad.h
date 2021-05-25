@@ -18,19 +18,17 @@
  * 					Preprocessor macros								*
  ********************************************************************
  */
-#define KEYPAD_PORT_DIR
-#define	KEYPAD_PORT_OUT
-#define	N_COL
-#define	N_ROW
-#define KEYPAD_PORT_IN
-#define
-#define
-#define
-#define
-#define
-#define
-#define
-#define
+#define KEYPAD_PORT_DIR DDRA
+#define	KEYPAD_PORT_OUT	PORTA
+#define KEYPAD_PORT_IN PORTA
+#define	N_COL 3
+#define	N_ROW 4
+
+/********************************************************************
+ * 					Function prototyping							*
+ ********************************************************************
+ */
+uint8 KeyPad_getPressedKey(void);
 
 
 
