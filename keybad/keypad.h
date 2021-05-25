@@ -1,6 +1,6 @@
 /*  module name :keypad driver
  *
- *  file name :keybad.h
+ *  file name :keypad.h
  *
  *  description :the header file of keypad driver
  *
@@ -8,8 +8,8 @@
  *
  *   Author: Hesham Salem
  */
-#ifndef KEYBAD_H_
-#define KEYBAD_H_
+#ifndef KEYPAD_H_
+#define KEYPAD_H_
 #include"std_types.h"
 #include"micro_config.h"
 #include"common_macros.h"
@@ -22,7 +22,7 @@
 
 #define KEYPAD_PORT_DIR DDRA
 #define	KEYPAD_PORT_OUT	PORTA
-#define KEYPAD_PORT_IN PORTA
+#define KEYPAD_PORT_IN PINA
 
 /* keypad configuration for rows and columns */
 #define	N_COL 4
@@ -34,4 +34,4 @@
  */
 uint8 KeyPad_getPressedKey(void);
 
-#endif /* KEYBAD_H_ */
+#endif /* KEYPAD_H_ */

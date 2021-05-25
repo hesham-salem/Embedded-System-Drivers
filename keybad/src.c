@@ -1,26 +1,23 @@
 /*
- * src.c
+ * Exercise1.c
  *
- *  Created on: May 25, 2021
- *      Author: hesham
+ * Created: 1/23/2014 9:50:20 PM
+ *  Author: Mohamed Tarek
  */
-#include"keybad.h"
 
-int main()
+#include "keypad.h"
+
+int main(void)
 {
-	uint8 value;
-	DDRC |=0X0F;
-	PORTC &=~(0x0f);
-
-	while(1)
-	{
-	value=KeyPad_getPressedKey();
-		if(value<10)
-
-			PORTC=(PORTC&(0xf0))|((value&(0x0f)));
-
-
-	}
-
+	uint8 key;
+	DDRC  |= 0x0F; /* 7-segment pins as output pins */
+	PORTC &= 0xF0; /* 7-segment displays Zero at the beginning */
+    while(1)
+    {
+        key = KeyPad_getPressedKey(); /* get the pressed button from keypad */
+	    if((key >= 0) && (key <= 9))
+		{
+			 PORTC = key;
+		}
+    }
 }
-

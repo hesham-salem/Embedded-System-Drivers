@@ -9,7 +9,7 @@
  *   Author: Hesham Salem
  */
 
-#include"keybad.h"
+#include"keypad.h"
 
 /****************************************************
  * 				functions prototyping (private)		*
@@ -19,12 +19,12 @@
 /* function to mapping the the switch position in keypad 4x3 to
  * corresponding actual number
  */
-static uint8 KeyPad_4x3_adjustSwitchNumber(uint8 number);
+ uint8 KeyPad_4x3_adjustSwitchNumber(uint8 a_number);
 #elif(N_COL==4)
 /* function to mapping the the switch position in keypad 4x4 to
  * corresponding actual number
  */
-static uint8 KeyPad_4x4_adjustSwitchNumber(uint8 number);
+static uint8 KeyPad_4x4_adjustSwitchNumber(uint8 a_number);
 #endif
 /***************************************************************
  * 					function definition 						*
@@ -33,11 +33,13 @@ static uint8 KeyPad_4x4_adjustSwitchNumber(uint8 number);
 
 uint8 KeyPad_getPressedKey(void) {
 	uint8 row, col;
+	while(1)
+	{
 	for (col = 0; col < N_COL; col++) {
 		/* set the specified column in this trace output pin and the first 4 pins as input */
-		KEYPAD_PORT_DIR = (0b0001000 << col);
+		KEYPAD_PORT_DIR = (0b00010000 << col);
 		/* put on the specified column in this trace output pin 0 and  make the first 4 pins as pull up */
-		KEYPAD_PORT_OUT = (~(0b0001000 << col));
+		KEYPAD_PORT_OUT = (~(0b00010000 << col));
 		for (row = 0; row < N_ROW; row++) /* loop for rows */
 		{
 			if (BIT_IS_CLEAR(KEYPAD_PORT_IN, row))/* if the switch is pressed in this row */
@@ -52,8 +54,12 @@ uint8 KeyPad_getPressedKey(void) {
 	}
 
 }
+}
+
 #if(N_COL==3)
-static uint8 KeyPad_4x3_adjustSwitchNumber(uint8 a_number) {
+ uint8 KeyPad_4x3_adjustSwitchNumber(uint8 a_number) {
+
+
 	switch (a_number) {
 	case 10:
 		return '*';
@@ -64,6 +70,9 @@ static uint8 KeyPad_4x3_adjustSwitchNumber(uint8 a_number) {
 	default:
 		return a_number;
 	}
+ }
+
+
 #elif(N_COL==4)
 
 static uint8 KeyPad_4x4_adjustSwitchNumber(uint8 a_number) {
@@ -95,7 +104,7 @@ static uint8 KeyPad_4x4_adjustSwitchNumber(uint8 a_number) {
 	case 13:
 		return 13;
 	case 14:
-		return "0";
+		return 0;
 	case 15:
 		return '=';
 	case 16:
