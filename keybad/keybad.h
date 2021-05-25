@@ -6,7 +6,7 @@
  *
  *  Created on: May 24, 2021
  *
-*   Author: Hesham Salem
+ *   Author: Hesham Salem
  */
 #ifndef KEYBAD_H_
 #define KEYBAD_H_
@@ -18,10 +18,14 @@
  * 					Preprocessor macros								*
  ********************************************************************
  */
+/* keypad configuration for ports */
+
 #define KEYPAD_PORT_DIR DDRA
 #define	KEYPAD_PORT_OUT	PORTA
 #define KEYPAD_PORT_IN PORTA
-#define	N_COL 3
+
+/* keypad configuration for rows and columns */
+#define	N_COL 4
 #define	N_ROW 4
 
 /********************************************************************
@@ -29,8 +33,5 @@
  ********************************************************************
  */
 uint8 KeyPad_getPressedKey(void);
-
-
-
 
 #endif /* KEYBAD_H_ */
