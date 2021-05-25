@@ -14,5 +14,25 @@
 #include"micro_config.h"
 #include"common_macros.h"
 
+/********************************************************************
+ * 					Preprocessor macros								*
+ ********************************************************************
+ */
+#define KEYPAD_PORT_DIR
+#define	KEYPAD_PORT_OUT
+#define	N_COL
+#define	N_ROW
+#define KEYPAD_PORT_IN
+#define
+#define
+#define
+#define
+#define
+#define
+#define
+#define
+
+
+
 
 #endif /* KEYBAD_H_ */
