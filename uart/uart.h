@@ -13,7 +13,9 @@
 
 void UART_init(void);
 uint8 UART_recieveByte(void);
-void UART_sendByte(uint8 data);
+void UART_sendByte(const uint8 data);
+void UART_sendString(uint8 *str);
+void UART_recieveString(uint8 *str);
 
 
 #endif /* UART_H_ */
