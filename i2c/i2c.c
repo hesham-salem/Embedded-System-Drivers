@@ -21,9 +21,10 @@ void TWI_start(void)
 TWCR=(1<<TWINT)|(1<<TWSTA)|(1<<TWEN);
 while(BIT_IS_CLEAR(TWCR,TWINT));// WAIT acation done
 }
-void TWI_STOP(void)
+void TWI_stop(void)
 {
-TWCR=(1<<TWINT)|(1<<TWSTO)(1<<TWEN);
+TWCR=(1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
+
 //NO NEED TO WAIT twint flag
 }
 void TWI_write(uint8 data)
@@ -47,7 +48,7 @@ uint8 TWI_read_with_NACK(void)
 	//CLEAR flag before or after
 	return TWDR;
 }
-uint8 TWI_get_status()
+uint8 TWI_getStatus()
 {
 	return TWSR&0XF8;
 }
