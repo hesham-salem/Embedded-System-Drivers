@@ -19,26 +19,27 @@ TWI_init();
 
 uint8 EEPROM_writeByte(uint16 u16addr, uint8 u8data)
 {
+
 	TWI_start();
 	if(TWI_getStatus()!=TW_START)
-	return ERROR;
+	return 1;
 
 	TWI_write((uint8)(0xA0|((u16addr&0X0700)>>7)));
 	if(TWI_getStatus()!=TW_MT_SLA_W_ACK)
-		return ERROR;
+		return 2;
 
 
 	TWI_write((uint8)u16addr);
-	if(TWI_getStatus()!=TW_MR_DATA_ACK)
-			return ERROR;
+	if(TWI_getStatus()!=TW_MT_DATA_ACK)
+			return 0x80;
 
 
 	TWI_write(u8data);
-	if(TWI_getStatus()!=TW_MR_DATA_ACK)
-			return ERROR;
+	if(TWI_getStatus()!=TW_MT_DATA_ACK)
+			return 4;
 
 	TWI_stop();
-	return SUCCESS;
+	return 5;
 }
 
 uint8 EEPROM_readByte(uint16 u16addr, uint8 *u8data)
@@ -53,12 +54,12 @@ uint8 EEPROM_readByte(uint16 u16addr, uint8 *u8data)
 
 
 		TWI_write((uint8)u16addr);
-		if(TWI_getStatus()!=TW_MR_DATA_ACK)
+		if(TWI_getStatus()!=TW_MT_DATA_ACK)
 				return ERROR;
 
 
 		TWI_write(u8data);
-		if(TWI_getStatus()!=TW_MR_DATA_ACK)
+		if(TWI_getStatus()!=TW_MT_DATA_ACK)
 				return ERROR;
 		TWI_start();
 		if(TWI_getStatus()!=TW_REP_START)

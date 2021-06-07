@@ -29,13 +29,17 @@ TWCR=(1<<TWINT)|(1<<TWSTO)|(1<<TWEN);
 }
 void TWI_write(uint8 data)
 {
+
 	TWDR=data;
-	TWCR=(1<<TWINT)|(TWEN);
+
+	TWCR=(1<<TWINT)|(1<<TWEN);
+
 	while(BIT_IS_CLEAR(TWCR,TWINT));
+
 }
 uint8 TWI_read_with_ACK(void)
 {
-	TWCR=(1<<TWINT)|(1<<TWEA)|(TWEN);
+	TWCR=(1<<TWINT)|(1<<TWEA)|(1<<TWEN);
 	while(BIT_IS_CLEAR(TWCR,TWINT));
 	//CLEAR flag before or after
 	return TWDR;
@@ -43,7 +47,7 @@ uint8 TWI_read_with_ACK(void)
 
 uint8 TWI_read_with_NACK(void)
 {
-	TWCR=(1<<TWINT)|(TWEN);
+	TWCR=(1<<TWINT)|(1<<TWEN);
 	while(BIT_IS_CLEAR(TWCR,TWINT));
 	//CLEAR flag before or after
 	return TWDR;
