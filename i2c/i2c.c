@@ -6,11 +6,13 @@
  */
 #include"i2c.h"
 
-void TWI_init(void)
+void TWI_init(const TWI_configurationType *config)
 {
-	TWBR=0X02;//buad rate
+	//TWBR=0X02;//buad rate
+	TWBR=((float)F_CPU/config->baudRate +16)/(2*pow(4,config->prescasler));
 	TWSR=0X00; //prescaler
-	 TWAR=0B00000100;// adress+ other bit
+	TWSR=config->prescasler;
+	 TWAR=config->slave_address<<1;// adress+ other bit
 	TWCR|=(1<<TWEN);// دائما فى الاخر
 
 }

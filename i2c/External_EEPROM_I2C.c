@@ -17,7 +17,7 @@ int main(void)
 	/* Init EEPROM */
 	EEPROM_init();
 
-	val=EEPROM_writeByte(0x0311, 0xFF); /* Write 0x0F in the external EEPROM */
+	val=EEPROM_writeByte(0x0311, 0x0F); /* Write 0x0F in the external EEPROM */
 	_delay_ms(10);
 
 	EEPROM_readByte(0x0311, &val);  /* Read 0x0F from the external EEPROM */

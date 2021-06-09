@@ -12,9 +12,14 @@
 #include "i2c.h"
 #include "external_eeprom.h"
 
+TWI_configurationType TWI_config;
 void EEPROM_init(void)
 {
-TWI_init();
+	TWI_config.baudRate=400000;
+	TWI_config.prescasler=0;
+	TWI_config.slave_address=0b00001011;
+
+TWI_init(&TWI_config);
 }
 
 uint8 EEPROM_writeByte(uint16 u16addr, uint8 u8data)
