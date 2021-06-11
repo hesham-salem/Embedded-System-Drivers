@@ -6,25 +6,66 @@
  */
 #include"uart.h"
 
-void UART_init(void)
+void UART_init(UART_configurationType * config)
 {
 /* enables */
-	//UCSRA = (1<<U2X);
-SET_BIT(UCSRB,RXEN);
-SET_BIT(UCSRB,TXEN);
+	if(config->mode=="normal")
+	{
+CLEAR_BIT(UCSRA,U2X);
+UBRRL=((F_CPU /(16*config->buadRate))-1);
+UBRRH=((F_CPU /(16*config->buadRate))-1)>>8;
+
+
+	}
+	else if(config->mode=="double speed")
+	{
+		SET_BIT(UCSRA,U2X);
+		UBRRL=((F_CPU /(8*config->buadRate))-1);
+		UBRRH=((F_CPU /(8*config->buadRate))-1)>>8;
+	}
+
+
 /* TO enable writing on Register UCSRC (used for define the frame )as it has the same address with UBRR register */
 SET_BIT(UCSRC,URSEL);
 /* the UART frame parameters*/
 /* character size */
-SET_BIT(UCSRC,UCSZ0);
-SET_BIT(UCSRC,UCSZ1);
+//SET_BIT(UCSRC,UCSZ0);
+//SET_BIT(UCSRC,UCSZ1);
+switch(config->character_size)
+{
+case 5:
+	CLEAR_BIT(UCSRC,UCSZ0);
+	CLEAR_BIT(UCSRC,UCSZ1);
+	break;
+
+case 6:
+	CLEAR_BIT(UCSRC,UCSZ0);
+	SET_BIT(UCSRC,UCSZ1);
+	break;
+case 7:
+	CLEAR_BIT(UCSRC,UCSZ1);
+	SET_BIT(UCSRC,UCSZ0);
+		break;
+case 9:
+	SET_BIT(UCSRC,UCSZ0);
+	SET_BIT(UCSRC,UCSZ1);
+	SET_BIT(UCSRC,UCSZ2);
+	typedef uint16 character ;
+
+	break;
+
+default :
+	SET_BIT(UCSRC,UCSZ0);
+	SET_BIT(UCSRC,UCSZ1);
+}
+
 /* write on UBRR instead of ucsrc register */
 //CLEAR_BIT(UCSRC,URSEL);//---------------------------------------<<<<
 /* writing the baud rate prescaler */
-UBRRL=25;
-UBRRH=25>>8;
-
-
+//UBRRL=12;
+//UBRRH=12>>8;
+SET_BIT(UCSRB,RXEN);
+SET_BIT(UCSRB,TXEN);
 }
 
 uint8 UART_recieveByte(void)

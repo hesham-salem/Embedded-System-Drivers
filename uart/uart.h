@@ -11,7 +11,15 @@
 #include "micro_config.h"
 #include "std_types.h"
 
-void UART_init(void);
+typedef struct
+{
+	 uint8 character_size;
+	 uint32 buadRate;
+	 char *mode;
+}UART_configurationType;
+typedef uint8 character;
+
+void UART_init(UART_configurationType * config);
 uint8 UART_recieveByte(void);
 void UART_sendByte(const uint8 data);
 void UART_sendString(uint8 *str);
