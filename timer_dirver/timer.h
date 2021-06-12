@@ -20,8 +20,9 @@ typedef struct
 
 }TIMER_configurationType;
 
-void TIMER_init(TIMER_configurationType * config);
+void TIMER_init(const TIMER_configurationType * config);
 void TIMER_set(uint8 compareValue);
+void TIMER_setCallBack(void(*a_ptr)(void));
 
 
 #endif /* TIMER_H_ */

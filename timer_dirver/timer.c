@@ -6,9 +6,15 @@
  */
 
 #include"timer.h"
+static volatile  void(*g_callBackPtr)(void)= NULL_PTR;
+ISR(TIMER0_COMP_vect)
+{
+	if(g_callBackPtr!=NULL_PTR)
+		g_callBackPtr();
 
+}
 
-void TIMER_init(TIMER_configurationType * config)
+void TIMER_init(const TIMER_configurationType * config)
 {
 	if(config->timerNumber==0)
 	{
@@ -33,11 +39,27 @@ void TIMER_init(TIMER_configurationType * config)
 		}
 
 	if(!strcmp(config->mode,"compare"))
-	{	TCCR0|=(1<<FOC0);
-		if(!strcmp(config->compareMatchMode,"toggle")) 	TCCR0|=(1<<COM00);
-		else if(config->compareMatchMode=="clear") 	TCCR0|=(1<<COM01);
-		else if(config->compareMatchMode=="set") 	TCCR0|=(1<<COM01)|(1<<COM00);
+	{	TCCR0|=(1<<FOC0)|(1<<WGM01);
+
+		if(!strcmp(config->compareMatchMode,"toggle"))
+		{
+		TCCR0|=(1<<COM00);
+		SET_BIT(DDRB,3);
+		}
+		else if(config->compareMatchMode=="clear")
+			{
+			TCCR0|=(1<<COM01);
+			SET_BIT(DDRB,3);
+
+			}
+		else if(config->compareMatchMode=="set")
+			{
+			TCCR0|=(1<<COM01)|(1<<COM00);
+			SET_BIT(DDRB,3);
+
+			}
 	}
+
 
 	//TCCR0=(1<<FOC0)|(1<<COM00)|(1<<CS00)|(1<<CS02);
 
@@ -51,4 +73,8 @@ void TIMER_set(uint8 compareValue)
 {
 	TCNT0=0;
 	OCR0=compareValue;
+}
+void TIMER_setCallBackPtr(void(*a_ptr)(void))
+{
+g_callBackPtr=a_ptr;
 }
