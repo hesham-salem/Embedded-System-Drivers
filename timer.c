@@ -63,17 +63,38 @@ void TIMER_init(const TIMER_configurationType * config)
 			SET_BIT(DDRB,3);
 
 			}
+		//enable interrupt
+		TIMSK=(1<<OCIE0);
+
 	}
 	else if(!strcmp(config->mode,"normal"))
 	{
 		TCCR0|=(1<<FOC0);
+		TIMSK=(1<<TOIE0);
+	}
+	else if(!strcmp(config->mode,"pwm"))
+	{
+		TCCR0 |=(1<<WGM00)|(1<<WGM01);
+		if(!strcmp(config->pwmMode,"inverting"))
+				{
+				TCCR0|=(1<<COM00);
+				TCCR0|=(1<<COM01);
+				SET_BIT(DDRB,3);
+				}
+				else if(!strcmp(config->pwmMode,"non-inverting"))
+					{
+					TCCR0|=(1<<COM01);
+					SET_BIT(DDRB,3);
+
+					}
+
 	}
 
 	//TCCR0=(1<<FOC0)|(1<<COM00)|(1<<CS00)|(1<<CS02);
 
 
 	//enable
-	TIMSK=(1<<OCIE0);
+
 	sei();
 }
 }
@@ -83,10 +104,22 @@ void TIMER_setCompare(uint8 compareValue)
 	OCR0=compareValue;
 }
 void TIMER_setNormal(uint8 initValue)
+
 {
 	TCNT0=initValue;
 }
+
+void TIMER_setpwm(uint8 dutyCycle)
+{
+	TCNT0=0;
+	OCR0=dutyCycle;
+}
+
 void TIMER_setCallBackPtr(void(*a_ptr)(void))
 {
 g_callBackPtr=a_ptr;
+}
+void TIMER_stop()
+{
+	TCCR0&=~(1<<CS00)&~(1<<CS01)&~(1<<CS02);
 }
