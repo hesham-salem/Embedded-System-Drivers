@@ -6,7 +6,7 @@
  *
  * Description: Header file for the External EEPROM Memory
  *
- * Author: Mohamed Tarek
+ * Author: Hesham Salem
  *
  *******************************************************************************/
 
@@ -28,5 +28,7 @@
 void EEPROM_init(void);
 uint8 EEPROM_writeByte(uint16 u16addr,uint8 u8data);
 uint8 EEPROM_readByte(uint16 u16addr,uint8 *u8data);
- 
+uint8 EEPROM_writeString(uint16 u16addr, uint8* str);
+uint8 EEPROM_readString(uint16 u16addr, uint8 *str);
+
 #endif /* EXTERNAL_EEPROM_H_ */
